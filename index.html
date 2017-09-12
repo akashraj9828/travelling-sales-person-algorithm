@@ -11,16 +11,20 @@ border-top-style: none;
 
 </style>
     <div  fill="grey" align="center" style="border:thin"  >
-      <p id=demo class="double">hellllo<p>
-      <p id=demo1 class="double">hellllo<p>
-<p id=demo2 class="double">hellllo<p>
-  <p id=demo3 class="double">hellllo<p>
-    <p id=demo4 class="double">hellllo<p>
-       <p id=demo5 class="double">hellllo<p>
+      <p id=demo class="double"></p>
+      <p id=demo1 class="double"></p>
+<p id=demo2 class="double"></p>
+  <p id=demo3 class="double"></p>
+    <p id=demo4 class="double"></p>
+       <p id=demo5 class="double"></p>
     <script src="p5.min.js"></script>
 
     <script src="sketch.js"></script>
   </div>
+
+  <script>
+    (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();stats.domElement.style.cssText='position:fixed;left:0;top:0;z-index:10000';document.body.appendChild(stats.domElement);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='stats.js';document.head.appendChild(script);})()
+    </script>
 
 
   <style> body {padding: 0; margin: 0;} </style>
