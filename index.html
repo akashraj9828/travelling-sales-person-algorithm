@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head id="head">
-    <style>
-p.double {
-  border-style: solid;
-  border-bottom-style: solid;
-border-left-style: none;
-border-top-style: none;
-   border-right-style: none;}
+<head id="head">
+<style>
 
 </style>
-    <div  fill="grey" align="center" style="border:thin"  >
-      <p id=demo class="double"></p>
-      <p id=demo1 class="double"></p>
-<p id=demo2 class="double"></p>
+<div  fill="grey" align="center" style="border:thin"  >
+  <p id=demo class="double"></p>
+  <p id=demo1 class="double"></p>
+  <p id=demo2 class="double"></p>
   <p id=demo3 class="double"></p>
-    <p id=demo4 class="double"></p>
-       <p id=demo5 class="double"></p>
-    <script src="p5.min.js"></script>
+  <p id=demo4 class="double"></p>
+  <p id=demo5 class="double"></p>
 
-    <script src="sketch.js"></script>
-  </div>
-
-  <script>
-    (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();stats.domElement.style.cssText='position:fixed;left:0;top:0;z-index:10000';document.body.appendChild(stats.domElement);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='stats.js';document.head.appendChild(script);})()
-    </script>
+  <script src="city.js"></script>
+  <!-- <script src="addons/p5.dom.js"></script> -->
+  <script src="p5.js"></script>
+ 
+  <script src="sketch.js"></script>
 
 
-  <style> body {padding: 0; margin: 0;} </style>
-  </head>
-  <body>
-  </body>
+</div>
+
+<script>
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();stats.domElement.style.cssText='position:fixed;left:0;top:0;z-index:10000';document.body.appendChild(stats.domElement);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='stats.js';document.head.appendChild(script);})()
+</script>
+
+
+<style> body {padding: 0; margin: 0;} </style>
+</head>
+<body>
+</body>
 </html>
