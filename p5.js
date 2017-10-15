@@ -1,6 +1,6 @@
 /*! p5.js v0.5.11 June 01, 2017 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
-console.log("p5js");
+
 },{}],2:[function(_dereq_,module,exports){
 (function (process,global){
 /*!
@@ -33,7 +33,7 @@ if (!Array.isArray) {
 } else {
   _isArray = Array.isArray;
 }
-console.log("p5js");
+
 var isArray = _isArray;
 
 var len = 0;
@@ -80,7 +80,7 @@ function useNextTick() {
     return process.nextTick(flush);
   };
 }
-console.log("p5js");
+
 // vertx
 function useVertxTimer() {
   if (typeof vertxNext !== 'undefined') {
@@ -132,7 +132,7 @@ function flush() {
     queue[i] = undefined;
     queue[i + 1] = undefined;
   }
-console.log("p5js");
+
   len = 0;
 }
 
@@ -171,7 +171,7 @@ function then(onFulfillment, onRejection) {
   if (child[PROMISE_ID] === undefined) {
     makePromise(child);
   }
-console.log("p5js");
+
   var _state = parent._state;
 
   if (_state) {
@@ -241,7 +241,7 @@ var FULFILLED = 1;
 var REJECTED = 2;
 
 var GET_THEN_ERROR = new ErrorObject();
-console.log("p5js");
+
 function selfFulfillment() {
   return new TypeError("You cannot resolve a promise with itself");
 }
@@ -403,7 +403,7 @@ function publish(promise) {
     } else {
       callback(detail);
     }
-  }console.log("p5js");
+  }
 
   promise._subscribers.length = 0;
 }
@@ -549,7 +549,7 @@ Enumerator.prototype._eachEntry = function (entry, i) {
       this._willSettleAt(new c(function (resolve$$) {
         return resolve$$(entry);
       }), i);
-    }console.log("p5js");
+    }
   } else {
     this._willSettleAt(resolve$$(entry), i);
   }
@@ -714,7 +714,7 @@ function race(entries) {
         Constructor.resolve(entries[i]).then(resolve, reject);
       }
     });
-  }console.log("p5js");
+  }
 }
 
 /**
@@ -1117,7 +1117,7 @@ Promise.prototype = {
   'catch': function _catch(onRejection) {
     return this.then(null, onRejection);
   }
-};console.log("p5js");
+};
 
 function polyfill() {
     var local = undefined;
@@ -15499,7 +15499,7 @@ p5.Renderer2D.prototype._getStroke = function(){
 // SHAPE | Curves
 //////////////////////////////////////////////
 p5.Renderer2D.prototype.bezier = function (x1, y1, x2, y2, x3, y3, x4, y4) {
-  this._pInst.beginShape();console.log("p5");
+  this._pInst.beginShape();
   this._pInst.vertex(x1, y1);
   this._pInst.bezierVertex(x2, y2, x3, y3, x4, y4);
   this._pInst.endShape();
@@ -35032,7 +35032,6 @@ p5.RendererGL.prototype.bezier = function
 (args){
   var bezierDetail=args[12] || 20;//value of Bezier detail
   this.beginShape();
- console.log("p5");
   var coeff=[0,0,0,0];//  Bernstein polynomial coeffecients
   var vertex=[0,0,0]; //(x,y,z) coordinates of points in bezier curve
   for(var i=0; i<=bezierDetail; i++){
@@ -35055,7 +35054,7 @@ p5.RendererGL.prototype.bezier = function
 p5.RendererGL.prototype.curve=function
 (args){
   var curveDetail=args[12];
-  this.beginShape();console.log("p5");
+  this.beginShape();
   var coeff=[0,0,0,0];//coeffecients of the equation
   var vertex=[0,0,0]; //(x,y,z) coordinates of points in bezier curve
   for(var i=0; i<=curveDetail; i++){

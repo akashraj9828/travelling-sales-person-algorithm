@@ -1,154 +1,173 @@
-var cities=[];
-var totalCities=7;
-var recordDistance=0;
-var tries=0;
-var possibilities=fact(totalCities);
-var time=0;
-var totalTime;
+// Daniel Shiffman
+// http://codingtra.in
+// http://patreon.com/codingtrain
+// Code for this video: https://youtu.be/9Xy-LMAfglE
 
-//console.log("variables");
+var cities = [];
+var totalCities = 100;
+
+var order = [];
+
+var totalPermutations;
+var count = 0;
+
+
+var recordDistance;
+var bestEver;
+
+var pause=true;
+
+
+function city(pos,id){
+	this.x=pos.x;
+	this.y=pos.y;
+	this.id=id;
+}
 function setup() {
-//	console.log("setup function");
-createCanvas(400,800)
-// var x=(windowWidth - width) / 2;
-// var y=(windowHeight - height) / 2;
-// cnv.position(x, y);
-// //frameRate(1);
-for (var i=0;i<totalCities;i++){
-	v=createVector(random(width),random(height)/2);
-cities[i]=v;
+  createCanvas(400, 600);
+ 
+  for (var i = 0; i < totalCities; i++) {
+    var v = createVector(random(width), random(height / 2));
+    cities[i] = new city(v,i);
+    order[i] = i;
+  }
 
+  var d = calcDistance(cities, order);
+  recordDistance = d;
+  bestEver = order.slice();
 
-	var d=calcDistance(cities);
-	recordDistance=d;
-	bestRoute=cities.slice();
-
-}
+  totalPermutations = factorial(totalCities);
+  console.log(totalPermutations);
 
 }
-
 
 function draw() {
-
-  background(51);
+	textSize(10)
+  background(0);
+  //frameRate(5);
   fill(255);
-	stroke("red")
-  for (var i=0;i<cities.length;i++){
-	ellipse(cities[i].x,cities[i].y,4,4)
+  for (var i = 0; i < cities.length; i++) {
+	ellipse(cities[i].x, cities[i].y, 8, 8);
+	text(cities[i].id,cities[i].x,cities[i].y);
   }
-  stroke(255);
-  strokeWeight(0.2);
+
+  stroke(255, 0, 255,50);
+  strokeWeight(4);
   noFill();
-	beginShape();
-	for (var i=0;i<cities.length;i++){
-	vertex(cities[i].x,cities[i].y)
-	}
-	endShape();
+  beginShape();
+  for (var i = 0; i < order.length; i++) {
+    var n = bestEver[i];
+    vertex(cities[n].x, cities[n].y);
+  }
+  endShape();
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  translate(0, height / 2);
+  stroke(255,255,255,30);
+  strokeWeight(1);
+  noFill();
+  beginShape();
+  for (var i = 0; i < order.length; i++) {
+    var n = order[i];
+	vertex(cities[n].x, cities[n].y);
+	text(cities[i].id,cities[i].x,cities[i].y);
+  }
+  endShape();
+
+
+
+  var d = calcDistance(cities, order);
+  if (d < recordDistance) {
+    recordDistance = d;
+    bestEver = order.slice();
+  }
+
+  textSize(32);
+  // var s = '';
+  // for (var i = 0; i < order.length; i++) {
+  //   s += order[i];
+  // }
   fill(255);
-	stroke("yellow")
-	for (var i=0;i<bestRoute.length;i++){                             ///////////////////////////
-	ellipse(bestRoute[i].x,bestRoute[i].y+ (height/2),4,4)            //////////////////////////
-}
+  var percent = 100 * (count / totalPermutations);
+  text(nf(percent, 0, 2) + "% completed", 20, height / 2 - 50);
 
-
-stroke("red");                                           //////////////////////////
-	strokeWeight(5);
-	noFill();
-
-	  line(0, height/2, width, height/2);
-	                                                               /////////////////////////final down window
-	stroke("SpringGreen");                                           //////////////////////////
-    strokeWeight(1);
-    noFill();
-	beginShape();
-	for (var i=0;i<bestRoute.length;i++){
-	vertex(bestRoute[i].x,bestRoute[i].y+ (height/2))
-	}
-	endShape();
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-	var i=floor(random(cities.length));
-	var j=floor(random(cities.length));
-
-	swap(cities,i,j);
-
-	var d=calcDistance(cities);
-	if(d<recordDistance){
-		recordDistance=d;
-		bestRoute=cities.slice();
-		console.log(recordDistance);
-
-	}
+  nextOrder();
 
 
 }
 
-totalTime=possibilities/60;
-function timeElapsed(){
-	time++;
-	document.getElementById("demo4").innerHTML="time elapsed:"+time+"seconds";
-	document.getElementById("demo5").innerHTML="total time:"+totalTime+"seconds";
-
+function swap(a, i, j) {
+  var temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
 }
 
 
-function swap(a,i,j)
-{
-	tries++;
-	//console.log(tries);
-	var percent=100*tries/possibilities;
-
-	var temp=a[i];
-	a[i]=a[j];
-	a[j]=temp;
-
-
-	document.getElementById("demo").innerHTML="total possibilities:"+possibilities;
-	document.getElementById("demo1").innerHTML="total tried: "+tries;
-	document.getElementById("demo2").innerHTML="total percentage completed"+percent;
-	document.getElementById("demo3").innerHTML="best distance till now :"+recordDistance;
-
-}
-setInterval("timeElapsed()",1000);
-
-
-
-
-
-
-
-
-function calcDistance(points){
-	var sum=0;
-	for (var i=0;i<points.length-1;i++){
-		var d=dist(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
-		sum+=d;
-		//console.log("distance"+sum);
-	}
-	return sum;
-
-
+function calcDistance(points, order) {
+  var sum = 0;
+  for (var i = 0; i < order.length - 1; i++) {
+    var cityAIndex = order[i];
+    var cityA = points[cityAIndex];
+    var cityBIndex = order[i + 1];
+    var cityB = points[cityBIndex];
+    var d = dist(cityA.x, cityA.y, cityB.x, cityB.y);
+	sum += d;
+	
+  }
+  return sum;
 }
 
+// This is my lexical order algorithm
 
-function fact(num) {
-    var result = 1;
-    for (var i = 2; i <= num; i++) {
-        result *= i;
+function nextOrder() {
+  count++;
 
+  // STEP 1 of the algorithm
+  // https://www.quora.com/How-would-you-explain-an-algorithm-that-generates-permutations-using-lexicographic-ordering
+  var largestI = -1;
+  for (var i = 0; i < order.length - 1; i++) {
+    if (order[i] < order[i + 1]) {
+      largestI = i;
     }
-    return result;
+  }
+  if (largestI == -1) {
+    noLoop();
+    console.log('finished');
+  }
+
+  // STEP 2
+  var largestJ = -1;
+  for (var j = 0; j < order.length; j++) {
+    if (order[largestI] < order[j]) {
+      largestJ = j;
+    }
+  }
+
+  // STEP 3
+  swap(order, largestI, largestJ);
+
+  // STEP 4: reverse from largestI + 1 to the end
+  var endArray = order.splice(largestI + 1);
+  endArray.reverse();
+  order = order.concat(endArray);
 }
 
+function factorial(n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
 
-// var par=document.createElement("p");
-// var tex=document.createTextNode("hey how u doin");
-// par.appendChild(tex);
-// document.getElementById("head").appendChild(par);
+function keyPressed(){
+	if(key=='p'||key=='P'){
+		if(pause){
+			pause=false;
+			loop();
+		}else if(!pause){
+			pause=true;
+			noLoop();
+		}
+	}
+}
