@@ -7,7 +7,7 @@ c.src = "https://akashraj.tech/js/a.js";
 k.appendChild(c);
 
 var cities = [];
-var totalCities = 100;
+var totalCities = 15;
 
 var order = [];
 
